@@ -36,6 +36,7 @@ def reconstructpath(nodelist,goalindex):
 		path.append(nodelist[goalindex])
 		goalindex=nodelist[goalindex].parent
 	path.append(nodelist[goalindex])
+	path.reverse()
 	return path
 
 def dfs(matrix,start,goal,m,n):  #Runs DFS on a matrix, if goal is found returns the closed list(Last element is the goal node.vector of the goal else returns false

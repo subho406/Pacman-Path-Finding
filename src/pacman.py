@@ -1,4 +1,4 @@
-from libs import algos
+from libs import algos 
 from libs import vector
 from libs import graphics
 
