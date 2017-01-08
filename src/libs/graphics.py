@@ -1,11 +1,6 @@
-'''
-Contains functions to visualize the maze, search space and path found
-'''
 import pygame
 import math
 from . import vector
-
-
 def animategraph(maze,m,n,pacpos,foodpos,searchdata,pathdata):
     boxsize=20
     pygame.init()
@@ -42,5 +37,30 @@ def animategraph(maze,m,n,pacpos,foodpos,searchdata,pathdata):
             pygame.display.flip()
             clock.tick(60)
 
+if __name__=='__main__':
+    print('Enter graph data one by one.')
+    pacpos=input().split(' ')
+    pacpos=vector(int(pacpos[0]),int(pacpos[1]))
+    foodpos=input().split(' ')
+    foodpos=vector(int(foodpos[0]),int(foodpos[1]))
+    coords=input().split(' ')
+    m,n=int(coords[0]),int(coords[1])
+    maze=[]
+    for i in range(0,m):
+        maze.append(input())
+    print('Enter search followed by path found')
+    n1=int(input())
+    searchdata=[]
+    for i in range(0,n1):
+        pos=input().split(' ')
+        pos=vector(int(pos[0]),int(pos[1]))
+        searchdata.append(pos)
+    n2=int(input())
+    pathdata=[]
+    for i in range(0,n2):
+        pos=input().split(' ')
+        pos=vector(int(pos[0]),int(pos[1]))
+        pathdata.append(pos)
+    animategraph(maze,m,n,pacpos,foodpos,searchdata,pathdata)
 
 
