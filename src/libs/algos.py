@@ -5,7 +5,7 @@ Contains the following AI Algorithms
 '''
 from . import vector
 import heapq
-
+import math
 
 def inclosed(closed,node):
 	for a in closed:
@@ -30,6 +30,7 @@ def movegen(matrix,pos,m,n):
 	if(pos.x+1!=m and matrix[pos.x+1][pos.y]!='%'):
 		neighbours.append(vector.vector(pos.x+1,pos.y))
 	return neighbours 
+
 def reconstructpath(nodelist,goalindex):
 	path=[]
 	while(nodelist[goalindex].parent!=None):
@@ -56,7 +57,9 @@ def dfs(matrix,start,goal,m,n):  #Runs DFS on a matrix, if goal is found returns
 				open.append(x)				
 	return False
 
-
+def euclideandist(node,goal):
+	cost=abs(node.x-goal.x)+abs(node.y-goal.y)
+	return cost
 
 def dijkstraunweighted(matrix,start,goal,m,n):  #Dijkstra implementation for array of nodes using pointersw
 	openlist=[]
@@ -77,3 +80,21 @@ def dijkstraunweighted(matrix,start,goal,m,n):  #Dijkstra implementation for arr
 				x.parent=len(closed)-1
 				heapq.heappush(openlist,(int(x.dist),x))
 			
+def bestfirst(matrix,start,goal,m,n):
+	openlist=[]
+	closed=[]
+	start.d=0
+	start.cost=euclideandist(start,goal)
+	openlist.append((0,start))
+	while len(openlist)>0:
+		cost,node=heapq.heappop(openlist)
+		closed.append(node)
+		if(goaltest(node,goal)):
+			return (reconstructpath(closed,len(closed)-1), closed)
+		neighbours=movegen(matrix,node,m,n)
+		for x in neighbours:
+			if  inclosed(closed,x)==False:
+				x.dist=node.dist
+				x.cost=euclideandist(x,goal)
+				x.parent=len(closed)-1
+				heapq.heappush(openlist,(int(x.cost),x))

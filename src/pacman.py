@@ -16,5 +16,5 @@ if __name__ == '__main__':
 	maze=[]
 	for i in range(0,m):
 		maze.append(input())  #Add maze data one by one
-	path,search=algos.dijkstraunweighted(maze,pacpos,foodpos,m,n)
+	path,search=algos.bestfirst(maze,pacpos,foodpos,m,n)
 	graphics.animategraph(maze,m,n,pacpos,foodpos,search,path)
